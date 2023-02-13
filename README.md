@@ -1,6 +1,6 @@
 # Quark IDE
 
-![GitHub](https://img.shields.io/github/license/your-username/Quark)
+![GitHub](https://img.shields.io/github/license/EthanHoward/Quark)
 
 Quark is an Integrated Development Environment (IDE) written in C# with WPF. The name Quark refers to the subatomic particle and represents the building blocks of our code. 
 
@@ -14,7 +14,7 @@ Quark is an Integrated Development Environment (IDE) written in C# with WPF. The
 
 1. Clone the repository
 
-git clone https://github.com/your-username/Quark.git
+git clone https://github.com/EthanHoward/Quark.git
 
 2. Open the solution in Visual Studio
 
@@ -28,4 +28,4 @@ We welcome contributions to the Quark IDE project. If you have an idea for a new
 
 ## License
 
-Quark is licensed under the [MIT License](LICENSE).
+Quark is licensed under the [Boost-1.0 License](LICENSE).
