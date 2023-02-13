@@ -28,4 +28,4 @@ We welcome contributions to the Quark IDE project. If you have an idea for a new
 
 ## License
 
-Quark is licensed under the [Boost-1.0 License](LICENSE).
+Quark is licensed under the [Boost Software License - Version 1.0](LICENSE).
