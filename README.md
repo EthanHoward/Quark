@@ -14,7 +14,7 @@ Quark is an Integrated Development Environment (IDE) written in C# with WPF. The
 
 1. Clone the repository
 
-git clone https://github.com/EthanHoward/Quark.git
+`git clone https://github.com/EthanHoward/Quark.git`
 
 2. Open the solution in Visual Studio
 
