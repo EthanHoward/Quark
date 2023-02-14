@@ -1,4 +1,4 @@
-# Quark IDE ![image]([https://github.com/EthanHoward/Quark/Quark.png](https://github.com/EthanHoward/Quark/blob/master/Quark.png)) 
+# Quark IDE ![image](https://github.com/EthanHoward/Quark/blob/master/Quark.png)
 
 ![GitHub](https://img.shields.io/github/license/EthanHoward/Quark)
 
