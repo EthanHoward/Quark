@@ -13,6 +13,10 @@ C:\Users\Ethan\RiderProjects\Quark\Quark\obj\Debug\Quark.pdb
 C:\Users\Ethan\RiderProjects\Quark\Quark\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Ethan\RiderProjects\Quark\Quark\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Ethan\RiderProjects\Quark\Quark\obj\Debug\Quark.csproj.CopyComplete
-C:\Users\Ethan\RiderProjects\Quark\Quark\obj\Debug\Pages\MainWindow.baml
-C:\Users\Ethan\RiderProjects\Quark\Quark\obj\Debug\Pages\MainWindow.g.cs
 C:\Users\Ethan\RiderProjects\Quark\Quark\obj\Debug\Pages\App.g.cs
+C:\Users\Ethan\RiderProjects\Quark\Quark\obj\Debug\Pages\Config\GrabUserDialog.baml
+C:\Users\Ethan\RiderProjects\Quark\Quark\obj\Debug\Pages\Config\GrabUserDialog.g.cs
+C:\Users\Ethan\RiderProjects\Quark\Quark\obj\Debug\Pages\Project\ChooseProject.baml
+C:\Users\Ethan\RiderProjects\Quark\Quark\obj\Debug\Pages\Project\ProjectCard.baml
+C:\Users\Ethan\RiderProjects\Quark\Quark\obj\Debug\Pages\Project\ChooseProject.g.cs
+C:\Users\Ethan\RiderProjects\Quark\Quark\obj\Debug\Pages\Project\ProjectCard.g.cs

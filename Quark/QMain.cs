@@ -1,31 +1,36 @@
 ﻿using System;
-using Quark.Classes.Util.Config;
+using Quark.Classes.Config;
+using Quark.Classes.FileManagement;
 using Quark.Classes.Util.Logging;
 using Quark.Pages;
 
 namespace Quark
 {
+    
+    /* TODOS
+     * Make config.json save into the Config folder rather than the DataRoot... 
+     * Error when bringing Projects array from the config file, its due to some casting wizardry
+     * Actually give functionality to the buttons on SelectProject.xaml
+     */
     public class QMain
     {
         private static Logger logger;
-        private static Config config;
-        
+        public static QConfig qConfig;
+        public static Projects projects;
+
         [STAThread]
         public static void Main()
         {
-            logger = new Logger();
+            qConfig = new QConfig();
+            logger = new Logger("<QMain> Starting Quark...");
 
-            config = new Config();
+            projects = new Projects();
+
+            projects.AddProject("Bean1");
             
-            logger.AddLog("[MAIN] Starting Quark...");
-            logger.SaveLog();
-            config.SaveConfig();
-            
-            App a = new App();
+            var a = new App();
             a.InitializeComponent();
             a.Run();
-            
-            
         }
     }
 }

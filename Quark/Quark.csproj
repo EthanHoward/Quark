@@ -14,6 +14,7 @@
         <WarningLevel>4</WarningLevel>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
         <StartupObject>Quark.QMain</StartupObject>
+        <ApplicationIcon>QuarkICO.ico</ApplicationIcon>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -56,17 +57,24 @@
         <Reference Include="PresentationFramework"/>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Classes\FileManagement\FileManager.cs"/>
-        <Compile Include="Classes\FileManagement\Project\QMProj.cs"/>
-        <Compile Include="Classes\Util\Config\Config.cs"/>
-        <Compile Include="Classes\Util\Logging\Logger.cs"/>
+        <Compile Include="AppConfig\QConfig.cs"/>
+        <Compile Include="AppConfig\QTheme.cs"/>
+        <Compile Include="AppConfig\Utils\GrabUser.cs"/>
+        <Compile Include="FileManagement\Projects\Project.cs"/>
+        <Compile Include="FileManagement\Projects\Projects.cs"/>
         <Compile Include="Pages\App.xaml.cs">
             <DependentUpon>App.xaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
-        <Compile Include="Pages\MainWindow.xaml.cs">
-            <DependentUpon>MainWindow.xaml</DependentUpon>
+        <Compile Include="Pages\Config\GrabUserDialog.xaml.cs">
+            <DependentUpon>GrabUserDialog.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Pages\Project\ChooseProject.xaml.cs">
+            <DependentUpon>ChooseProject.xaml</DependentUpon>
             <SubType>Code</SubType>
+        </Compile>
+        <Compile Include="Pages\Project\ProjectCard.xaml.cs">
+            <DependentUpon>ProjectCard.xaml</DependentUpon>
         </Compile>
         <Compile Include="Properties\AssemblyInfo.cs">
             <SubType>Code</SubType>
@@ -77,6 +85,7 @@
             <DependentUpon>Resources.resx</DependentUpon>
         </Compile>
         <Compile Include="QMain.cs"/>
+        <Compile Include="Util\Logging\Logger.cs"/>
         <EmbeddedResource Include="Properties\Resources.resx">
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -86,12 +95,15 @@
         <None Include="Config\App.config"/>
         <None Include="Config\packages.config"/>
         <None Include="packages.config"/>
+        <None Include="QuarkICO.ico"/>
     </ItemGroup>
     <ItemGroup>
-        <Page Include="Pages\MainWindow.xaml">
+        <Page Include="Pages\Config\GrabUserDialog.xaml"/>
+        <Page Include="Pages\Project\ChooseProject.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </Page>
+        <Page Include="Pages\Project\ProjectCard.xaml"/>
     </ItemGroup>
     <ItemGroup>
         <ApplicationDefinition Include="Pages\App.xaml">
