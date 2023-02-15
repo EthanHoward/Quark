@@ -21,7 +21,7 @@ namespace Quark.Classes.Util.Logging
             LogPath = Path.Combine(QMain.qConfig.GetValue<string>("DataRoot"), "Logs");
             SetName();
             CurrentLogFile = Path.Combine(LogPath, $"quark-{DS}.log");
-            this.PlainLog(InitMessage);
+            PlainLog(InitMessage);
         }
 
         private static void SetName()
@@ -78,8 +78,6 @@ namespace Quark.Classes.Util.Logging
             contents.Append($"< {DS} >\n");
 
             if (!Directory.Exists(LogPath)) Directory.CreateDirectory(LogPath);
-            {
-            }
             var logFilePath = Path.Combine(LogPath, CurrentLogFile);
             File.WriteAllText(logFilePath, contents.ToString());
 
