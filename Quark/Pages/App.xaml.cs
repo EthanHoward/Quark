@@ -1,7 +1,6 @@
-﻿using System;
-using System.Windows;
-using Quark.Classes.Config;
-using Quark.Classes.Util.Logging;
+﻿using System.Windows;
+using Quark.AppConfig;
+using Quark.Util.Logging;
 
 namespace Quark.Pages
 {

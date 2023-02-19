@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
-using Quark.Classes.Util.Config;
-using Quark.Classes.Util.Logging;
+using Quark.AppConfig.Util.Config;
+using Quark.Util.Logging;
 
-namespace Quark.Classes.Config.Utils
+namespace Quark.AppConfig.Utils
 {
     public abstract class GrabUser
     {
@@ -26,7 +26,7 @@ namespace Quark.Classes.Config.Utils
                 UserName = users[0];
                 return UserName;
             }
-            
+
             var dialog = new GrabUserDialog(users);
             if (dialog.ShowDialog() != true) return null;
             UserName = dialog.SelectedUser;

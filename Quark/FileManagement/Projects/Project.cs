@@ -1,67 +1,75 @@
 ﻿using System.IO;
 using Newtonsoft.Json.Linq;
-using Quark.Classes.Util.Logging;
+using Quark.Util.Logging;
 
-namespace Quark.Classes.FileManagement
+namespace Quark.FileManagement.Projects
 {
     public class Project
     {
-        private readonly string _Location;
-        private readonly string _Name;
+        private readonly bool _shouldLog = false;
+        private readonly bool _shouldSave;
+        public readonly string Location;
+        public readonly string MetaPath;
+        public readonly string Name;
 
-        private JObject _ProjectFile;
+        private JObject _projectFile;
 
-        public Project(string Name, string Directory)
+
+        public Project(string Name, string Directory, bool shouldSave)
         {
-            _Name = Name;
-            _Location = Directory;
+            this.Name = Name;
+            Location = Directory;
+            MetaPath = Path.Combine(QMain.qConfig.GetValue<string>("ProjectMetas"), $"{this.Name}.json");
+            _shouldSave = shouldSave;
             var shouldLoad = ShouldLoad();
             if (shouldLoad)
             {
-                Logger.Instance.WithClass("Project file found, loading...");
+                Logger.Instance.Info("Project file found, loading...");
                 Load();
             }
             else
             {
-                Logger.Instance.WithClass("Project file not found, creating new one...");
+                Logger.Instance.Info("Project file not found, creating new one...");
                 Create();
             }
         }
 
         private bool ShouldLoad()
         {
-            return File.Exists(Path.Combine(_Location, "project.json"));
+            return File.Exists(MetaPath);
         }
 
         private void Load()
         {
-            Logger.Instance.WithClass($"Loading project file... {_Location}");
-            _ProjectFile = JObject.Parse(File.ReadAllText(Path.Combine(_Location, "project.json")));
+            if (_shouldLog) Logger.Instance.Debug($"Loading project file... {MetaPath}");
+            _projectFile = JObject.Parse(File.ReadAllText(MetaPath));
         }
 
         private void Create()
         {
-            Logger.Instance.WithClass($"Creating project file... {_Location}");
-            _ProjectFile = new JObject();
+            if (_shouldLog) Logger.Instance.Debug($"Creating project file... {MetaPath}");
+            _projectFile = new JObject();
             // store Name, Location and other shit, for now though, just name and directory, not the path of the qmproject file but the directory its in.
-            _ProjectFile.Add("Name", _Name);
-            _ProjectFile.Add("Directory", _Location);
-            Save();
+            _projectFile.Add("Name", Name);
+            _projectFile.Add("Directory", Location);
+            if (_shouldSave) Save();
         }
 
         public void Save()
         {
-            Logger.Instance.WithClass($"Saving project file... {_Location}");
-            if (!Directory.Exists(_Location)) Directory.CreateDirectory(_Location);
-            File.WriteAllText(Path.Combine(_Location, "project.json"), _ProjectFile.ToString());
+            if (_shouldLog) Logger.Instance.Debug($"Saving project file... {MetaPath}");
+
+            if (!Directory.Exists(Location)) Directory.CreateDirectory(Location);
+
+            var projectsMetadataDirectory = QMain.qConfig.GetInstance().GetValue<string>("ProjectMetas");
+            if (!Directory.Exists(projectsMetadataDirectory)) Directory.CreateDirectory(projectsMetadataDirectory);
+            File.WriteAllText(MetaPath, _projectFile.ToString());
         }
 
-        // make a T function to retrieve value of type from the file (internally via the JObject), return null otherwise
         public T GetValue<T>(string key)
         {
-            Logger.Instance.WithClass($"Getting value from project file... {key}");
-            if (_ProjectFile.ContainsKey(key)) return _ProjectFile[key].Value<T>();
-            return default;
+            Logger.Instance.Debug($"Getting value from project file... {key}");
+            return _projectFile.ContainsKey(key) ? (_projectFile[key] ?? "").Value<T>() : default;
         }
     }
 }

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Ethan\RiderProjects\Quark\Quark\Pages\App.xaml
-1-2040530559
+553740940
 
-9-453986006
+14968889655
 11-479084318
-Pages\MainWindow.xaml;
+Pages\Config\Wnd_GrabUserDialog.xaml;Pages\ProjectsGUI\Wnd_ChooseProject.xaml;Pages\ProjectsGUI\ProjectCard.xaml;Pages\ProjectsGUI\Wnd_NewProject.xaml;Pages\Theming\RD_Theme.xaml;
 
 False
 

@@ -1,60 +1,112 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Quark.Classes.Util.Logging;
+using System.Linq;
+using Newtonsoft.Json.Linq;
+using Quark.Util.Logging;
 
-namespace Quark.Classes.FileManagement
+namespace Quark.FileManagement.Projects
 {
     public class Projects
     {
-        private readonly List<Project> _Projects;
+        private readonly List<Project> _projects;
         public readonly Projects Instance;
-        
+
         public Projects()
         {
-            _Projects = new List<Project>();
+            _projects = new List<Project>();
             Instance = this;
-            
-            // get projects from config and load to _Projects
-            //var projects = QMain.qConfig.GetValue<List<string>>("Projects");
-            //foreach (var project in projects)
-            //{
-            //    _Projects.Add(new Project(project, Path.Combine(QMain.qConfig.GetValue<string>("ProjectsRoot"), project)));
-            //}
+            LoadFromMetas();
         }
 
-        public Project AddProject(string Name, string AbsoluteDirectory)
+        private void LoadFromMetas()
         {
-            var pr = new Project(Name, AbsoluteDirectory);
-            _Projects.Add(pr);
-            return pr;
+            var projectMetafiles = Directory.GetFiles(QMain.qConfig.GetValue<string>("ProjectMetas"), "*.json");
+            foreach (var metafile in projectMetafiles)
+            {
+                var data = JObject.Parse(File.ReadAllText(metafile));
+                Logger.Instance.WithClass($"Found a metafile, {data.GetValue("Name")} at {data.GetValue("Directory")}");
+                if (data.GetValue("Name") == null || data.GetValue("Directory") == null)
+                {
+                    Logger.Instance.Debug("Metafile is invalid, has no directory and/or name");
+                    continue;
+                }
+
+                var project = new Project(data.GetValue("Name")?.ToString(), data.GetValue("Directory")?.ToString(),
+                    true);
+                Append(project);
+            }
+
+            Logger.Instance.WithClass(_projects.ToString());
         }
 
-        public Project AddProject(string Name)
+        public Project NewProject(string Name, string AbsoluteDirectory)
         {
-            // here we will make a project, its name being supplied, it directory being its name within the projects directory (grabbed from the config)
-            var pr = new Project(Name, Path.Combine(QMain.qConfig.GetValue<string>("ProjectsRoot"), Name));
-            _Projects.Add(pr);
-            return pr;
-        }
+            var pr = new Project(Name, AbsoluteDirectory, true);
+            // check if it exists in array
+            if (_projects.All(x => x.GetValue<string>("Name") != Name))
+            {
+                _projects.Add(pr);
+                return pr;
+            }
 
-        public void OpenProject(string Name)
-        {
-            Logger.Instance.WithClass($"Opening project {Name}... Does nothing yet.");
+            Logger.Instance.WithClass(
+                $"Project {Name} already exists in config, not adding it again. (This is not a bug, you cannot have two projects with the same name)");
+            return null;
         }
 
         public static void OpenProject(Project project)
         {
-            Logger.Instance.WithClass($"Opening project {project.GetValue<string>("Name")}... Does nothing yet.");
+            Logger.Instance.Debug($"Opening project {project.GetValue<string>("Name")}... Does nothing yet.");
         }
-        
+
         public Project GetProject(string Name)
         {
-            return _Projects.Find(x => x.GetValue<string>("Name") == Name);
+            return _projects.Find(x => x.GetValue<string>("Name") == Name);
         }
 
         public List<Project> GetProjects()
         {
-            return _Projects;
+            return _projects;
+        }
+
+        private void Append(Project project)
+        {
+            Logger.Instance.Debug(
+                $"Appending project {project.GetValue<string>("Name")} to projects array Projects.cs:12");
+            _projects.Add(project);
+        }
+
+        private bool Validate(Project project)
+        {
+            // here we must validate the project against a "WAGOLL"
+            var WAGOLL = new JObject();
+            WAGOLL.Add(new object[] { "Name", "dddddddddddddddddddd" });
+            WAGOLL.Add(new object[] { "Directory", "dddddddddddddddddddd" });
+            //WAGOLL.Add("Files", new JArray("array")); not adding yet, will be added later
+            //WAGOLL.Add("OpenFiles", new JArray("array")); not adding yet, will be added later
+            // now check
+            foreach (var token in WAGOLL)
+                // ensure it is a JValue or a JArray as they are different and may throw errors if incorrectly checked
+                if (token.Value is JValue)
+                {
+                    if (project.GetValue<string>(token.Key) == null)
+                    {
+                        Logger.Instance.Debug(
+                            $"Project {project.GetValue<string>("Name")} is invalid, missing {token.Key}");
+                        return false;
+                    }
+                }
+                else if (token.Value is JArray)
+                {
+                    if (project.GetValue<JArray>(token.Key) == null)
+                    {
+                        Logger.Instance.Debug(
+                            $"Project {project.GetValue<string>("Name")} is invalid, missing {token.Key}");
+                        return false;
+                    }
+                }
+
+            return true;
         }
     }
 }

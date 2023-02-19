@@ -66,15 +66,18 @@
             <DependentUpon>App.xaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
-        <Compile Include="Pages\Config\GrabUserDialog.xaml.cs">
-            <DependentUpon>GrabUserDialog.xaml</DependentUpon>
+        <Compile Include="Pages\Config\Wnd_GrabUserDialog.xaml.cs">
+            <DependentUpon>Wnd_GrabUserDialog.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Pages\Project\ChooseProject.xaml.cs">
-            <DependentUpon>ChooseProject.xaml</DependentUpon>
+        <Compile Include="Pages\ProjectsGUI\Wnd_ChooseProject.xaml.cs">
+            <DependentUpon>Wnd_ChooseProject.xaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
-        <Compile Include="Pages\Project\ProjectCard.xaml.cs">
+        <Compile Include="Pages\ProjectsGUI\ProjectCard.xaml.cs">
             <DependentUpon>ProjectCard.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Pages\ProjectsGUI\Wnd_NewProject.xaml.cs">
+            <DependentUpon>Wnd_NewProject.xaml</DependentUpon>
         </Compile>
         <Compile Include="Properties\AssemblyInfo.cs">
             <SubType>Code</SubType>
@@ -98,18 +101,23 @@
         <None Include="QuarkICO.ico"/>
     </ItemGroup>
     <ItemGroup>
-        <Page Include="Pages\Config\GrabUserDialog.xaml"/>
-        <Page Include="Pages\Project\ChooseProject.xaml">
+        <Page Include="Pages\Config\Wnd_GrabUserDialog.xaml"/>
+        <Page Include="Pages\ProjectsGUI\Wnd_ChooseProject.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </Page>
-        <Page Include="Pages\Project\ProjectCard.xaml"/>
+        <Page Include="Pages\ProjectsGUI\ProjectCard.xaml"/>
+        <Page Include="Pages\ProjectsGUI\Wnd_NewProject.xaml"/>
+        <Page Include="Pages\Theming\RD_Theme.xaml"/>
     </ItemGroup>
     <ItemGroup>
         <ApplicationDefinition Include="Pages\App.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </ApplicationDefinition>
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Util\Debugging"/>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
 </Project>
